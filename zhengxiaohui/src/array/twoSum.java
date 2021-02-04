@@ -1,36 +1,28 @@
 package array;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
-public class twoSum {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-//        int a = scanner.nextInt();
-//        int b = scanner.nextInt();
-        String numsString = scanner.nextLine();
-        String[] numsArray = numsString.split(" ");
-        System.out.println(Arrays.toString(numsArray));
-        int[] nums = new int[numsArray.length];
-        for (int i = 0; i < numsString.length(); i++) {
-//            nums[i] =
-        }
-//        int target = scanner.nextInt();
-//        int[] nums = new int[]{a,b};
-//        int[] result = twoSumDemo(nums,target);
-//        System.out.println(Arrays.toString(result));
-    }
-    public static int[] twoSumDemo(int[] nums, int target) {
-        int[] a=new int[2];
-        for(int i = 0;i < nums.length; i++){
-            for(int j=i+1;j<nums.length; j++){
-                if(nums[i]+nums[j]==target){
-                    a[0]=i;
-                    a[1]=j;
-                    return a;
-                }
+/**
+ * leetcode 1. 两数之和-哈希表
+ *创建哈希表，对于每一个x，先查询哈希表中是否存在target-x，然后将x插入到哈希表中
+ * 时间复杂度：O（N）
+ * 空间复杂度：O（N）
+ */
+class Solution1 {
+    public int[] twoSum(int[] nums, int target){
+        int len = nums.length;
+        Map<Integer,Integer>HashTable = new HashMap<>(len-1);
+        HashTable.put(nums[0], 0);
+        for (int i=1;i<len;i++){
+            int another = target-nums[i];
+            if(HashTable.containsKey(another)){
+                return new int[]{i,HashTable.get(another)};
             }
+            HashTable.put(nums[i], i);
         }
-        return null;
+        throw new IllegalArgumentException("No Two Sum Solution!");
     }
 }
